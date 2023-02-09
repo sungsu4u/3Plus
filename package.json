@@ -1,0 +1,40 @@
+{
+  "name": "3plus",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --host",
+    "build": "run-p type-check build-only",
+    "preview": "vite preview",
+    "test:unit": "vitest --environment jsdom --root src/",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+  },
+  "dependencies": {
+    "@jaames/iro": "^5.5.2",
+    "@radial-color-picker/vue-color-picker": "^5.0.1",
+    "ant-design-vue": "^3.2.15",
+    "antd": "^5.1.5",
+    "moment": "^2.29.4",
+    "pinia": "^2.0.28",
+    "v-iro.js": "^1.0.2",
+    "vue": "^3.2.45",
+    "vue-iro-color-picker": "^2.0.0",
+    "vue-router": "^4.1.6",
+    "vue3-slider": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^20.0.1",
+    "@types/node": "^18.11.12",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "@vue/test-utils": "^2.2.6",
+    "@vue/tsconfig": "^0.1.3",
+    "jsdom": "^20.0.3",
+    "naive-ui": "^2.34.3",
+    "npm-run-all": "^4.1.5",
+    "typescript": "~4.7.4",
+    "vite": "^4.0.0",
+    "vitest": "^0.25.6",
+    "vue-tsc": "^1.0.12"
+  }
+}
