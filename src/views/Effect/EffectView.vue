@@ -1,83 +1,61 @@
-<script setup lan="ts">
+<script setup lang="ts">
 
-import ToolBar from '@/components/ToolBar.vue';
-import { getStorage, saveStorage, clearStorage, hslToRgb, rgbToHsl } from '@/global/utility.js';
-
-
-import { defineComponent, ref, reactive } from 'vue'
+    import ToolBar from '@/components/ToolBar.vue';
+    import { getStorage, saveStorage, clearStorage, hslToRgb, rgbToHsl } from '@/global/utility.js';
 
 
+    import { defineComponent, ref, reactive } from 'vue'
 
 
+    const powerOn = ref(true);
+    const handlePowerChange = (e: string) => {
+      console.log("PowerOn is " + e)
+    }
 
-const powerOn = ref(true);
-const handlePowerChange = (e) => {
-  console.log("PowerOn is " + e)
-}
-
-const effectMode = ref("ON");
-// const effectMode = ref("Flash");
-// const effectMode = ref("Dimming");
-// const effectMode = ref("Party");
-// const effectMode = ref("Rainbow");
-// const effectMode = ref("Rotation");
-// const effectMode = ref("Reverse");
+    const effectMode = ref("ON");
 
 
+    const handleModeChange = (m: string) => {
+      effectMode.value = m;
+    }
 
-const handleModeChange = (m) => {
-  effectMode.value = m;
-}
+    const color = reactive({
+                    hue: 50,
+                    saturation: 100,
+                    luminosity: 50,
+                    alpha: 1
+                });
 
-const color = reactive({
-                hue: 50,
-                saturation: 100,
-                luminosity: 50,
-                alpha: 1,
-            });
-
-const onInput = (hue) => {
-                    color.hue = hue;
-                    console.log("Color(Hue): " + color.hue)
-                    
-                }
+    const onInput = (hue: number) => {
+                        color.hue = hue;
+                        console.log("Color(Hue): " + color.hue)
+                    }
 
 
-const colorChangeTimer = setInterval(() => {
-  color.hue = color.hue + speed.value;
+    const colorChangeTimer = setInterval(() => {
+      color.hue = color.hue + speed.value;
 
-  if (color.hue >= 360) { color.hue = color.hue - 360; }
-  if (color.hue < 0) { color.hue = color.hue + 360; }
-}, 50); // 0.05초 마다 실행 (초당 20번)
-
-
-const colorMonitorTimer = setInterval(() => {
-  console.log("speed : " + speed.value + 
-              " / hue : " + color.hue + 
-              " / brightness : " + brightness.value + 
-              " / rgb : " + hslToRgb(color.hue/360, 1.0, brightness.value/100));
-
-  console.log("RGB 255,0,0 => " + rgbToHsl(255, 0, 0))
-}, 500); // 0.5초 마다 실행 (초당 2번)
+      if (color.hue >= 360) { color.hue = color.hue - 360; }
+      if (color.hue < 0) { color.hue = color.hue + 360; }
+    }, 50); // 0.05초 마다 실행 (초당 20번)
 
 
-const speed = ref(5);  // 
+    const colorMonitorTimer = setInterval(() => {
+      console.log("speed : " + speed.value + 
+                  " / hue : " + color.hue + 
+                  " / brightness : " + brightness.value + 
+                  " / rgb : " + hslToRgb(color.hue/360, 1.0, brightness.value/100));
 
-const updateSpeed = (s) => {
-  speed.value = s;
-  console.log("updateSpeed : " + s);
-}
-
-const formatTooltipForSpeed = (value) => `${value * 20}°/초`;
+      console.log("RGB 255,0,0 => " + rgbToHsl(255, 0, 0))
+    }, 500); // 0.5초 마다 실행 (초당 2번)
 
 
-var brightness = ref(50);
+    const speed = ref(5);  // Tick 당 이동하는 각도의 초기값
+    const formatTooltipForSpeed = (value: number) => `${value * 20}°/초`;
 
-const updateBrightness = (b) => {
-  // console.log("updateBrightness : " + b);
-}
 
-const formatTooltipForBrightness = (value) => `${value}%`;
+    var brightness = ref(50); // 색의 밝기 %
+    const formatTooltipForBrightness = (value: any) => `${value}%`;
 
 </script>
 
